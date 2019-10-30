@@ -1,0 +1,32 @@
+{
+  "name": "timekeepersonline",
+  "version": "1.0.0",
+  "description": "Web application to simplify project, time and money management.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Be-Like/TimeKeepersOnline.git"
+  },
+  "author": "Jacob Simpson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Be-Like/TimeKeepersOnline/issues"
+  },
+  "homepage": "https://github.com/Be-Like/TimeKeepersOnline#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "config": "^3.2.4",
+    "express": "^4.17.1",
+    "express-validator": "^6.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.7"
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.0",
+    "nodemon": "^1.19.4"
+  }
+}
