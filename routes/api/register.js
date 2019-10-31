@@ -74,7 +74,6 @@ router.post(
 // @route PUT api/register
 // @desc Update user
 // @access Private
-// TODO: work on updating user information.
 router.put(
   '/',
   [check('password', 'Please enter a password').isLength({ min: 1 })],
