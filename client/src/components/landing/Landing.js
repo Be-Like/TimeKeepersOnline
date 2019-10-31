@@ -2,24 +2,25 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+// Ant components
+import { Button } from 'antd';
+import 'antd/dist/antd.css';
+
 const Landing = props => {
   return (
     <div>
       <section className='landing'>
         <div className='dark-overlay'>
           <div className='landing-inner'>
-            <h1 className='x-large'>Developer Connector</h1>
-            <p className='lead'>
-              Create a developer profile/portfolio, share posts and get help
-              from other developers
-            </p>
+            <h1 className='x-large'>TimeKeepers</h1>
+            <p className='lead'>It's not all about time</p>
             <div className='buttons'>
-              <Link to='/register' className='btn btn-primary'>
-                Sign Up
-              </Link>
-              <Link to='/login' className='btn btn-light'>
-                Login
-              </Link>
+              <Button type='primary' size='large' className='tstbtn'>
+                <Link to='/register'>Sign Up</Link>
+              </Button>
+              <Button type='default' className='tstbtn' size='large'>
+                <Link to='/login'>Login</Link>
+              </Button>
             </div>
           </div>
         </div>
