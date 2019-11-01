@@ -1,10 +1,8 @@
 /* Global Styles */
 :root {
   --primary-color: #17a2b8;
-  --dark-color: #343a40;
   --light-color: #f4f4f4;
-  --danger-color: #dc3545;
-  --success-color: #28a745;
+  --dark-color: #343a40;
 }
 
 * {
@@ -13,20 +11,31 @@
   padding: 0;
 }
 
-/* Text Styles */
-.x-large {
-  font-size: 3rem;
+body {
+  font-family: 'Varela', 'Raleway', sans-serif;
 }
 
-.large {
-  font-size: 2rem;
+a {
+  color: var(--primary-color);
+  text-decoration: none;
 }
 
-.lead {
-  font-size: 1.5rem;
+/* Background colors */
+.bg-dark {
+  background: var(--dark-color);
 }
 
-/* Landing Page */
+/* Utilities */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  overflow: hidden;
+  padding: 0 2rem;
+  margin-top: 6rem;
+  margin-bottom: 3rem;
+}
+
+/* Landing page */
 .landing {
   position: relative;
   background: url('./img/landingPage.jpg') no-repeat center center/cover;
@@ -45,9 +54,18 @@
   text-align: center;
 }
 
-/* Overlay */
+.landing-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.7rem 2rem;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  bottom: 0;
+}
+
 .dark-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.7);
   position: absolute;
   top: 0;
   left: 0;
@@ -55,29 +73,57 @@
   height: 100%;
 }
 
-.tstbtn {
-  margin-right: 0.5rem;
-  padding: 0.4rem 1.3rem;
-  font-size: 1rem;
-}
-
-.btn {
-  display: inline-block;
-  background: var(--light-color);
-  color: #333;
-  padding: 0.4rem 1.3rem;
-  font-size: 1rem;
-  border: none;
-  cursor: pointer;
-  margin-right: 0.5rem;
-  transition: opacity 0.2s ease-in;
-  outline: none;
-}
-
-.btn-primary,
-.bg-primary,
-.badge-primary,
-.alert-primary {
-  background: var(--primary-color);
+/* Navbar */
+.navbar a {
   color: #fff;
+  padding: 0.45rem;
+  margin: 0 0.25rem;
+}
+
+.navbar a:hover {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+/* Forms */
+.form .form-group {
+  margin: 1.2rem 0;
+}
+
+/* Text styles */
+.x-large {
+  font-size: 5rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.large {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.normal {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 700px) {
+  .container {
+    margin-top: 8rem;
+  }
+
+  /* Mobile text styles */
+  .x-large {
+    font-size: 3rem;
+  }
+
+  .large {
+    font-size: 2rem;
+  }
+
+  .normal {
+    font-size: 1rem;
+  }
 }
