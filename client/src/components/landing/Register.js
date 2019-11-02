@@ -24,8 +24,6 @@ const Register = ({ setAlert, register, alerts }) => {
       const misMatch = 'Passwords do no match';
       if (!alerts.some(alert => alert.msg === misMatch)) {
         setAlert(misMatch, 'danger');
-      } else {
-        register({ name, email, password });
       }
     } else {
       register({ name, email, password });
