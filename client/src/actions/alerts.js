@@ -9,3 +9,10 @@ export const setAlert = (msg, alertType) => dispatch => {
     payload: { msg, alertType, id }
   });
 };
+
+export const removeAlert = alertId => dispatch => {
+  dispatch({
+    type: REMOVE_ALERT,
+    payload: alertId
+  });
+};
