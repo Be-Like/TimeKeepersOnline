@@ -108,6 +108,11 @@ a {
   margin-bottom: 1rem;
 }
 
+.alert-styling {
+  position: fixed;
+  z-index: 999;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 700px) {
   .container {

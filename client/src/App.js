@@ -9,8 +9,18 @@ import store from './store';
 
 import Landing from './components/landing/Landing';
 import Navbar from './components/general/Navbar';
+import setAuthToken from './utils/setAuthToken';
+import { loadUser } from './actions/auth';
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 const App = () => {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+
   return (
     <Provider store={store}>
       <Router>
