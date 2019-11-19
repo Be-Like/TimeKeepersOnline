@@ -1,0 +1,34 @@
+/* Navbar */
+.navbar a {
+  color: #fff;
+  padding: 0.45rem;
+  margin: 0 0.25rem;
+}
+
+.navbar a:hover {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.navbar ul {
+  display: flex;
+  margin: 0 0.25rem;
+}
+
+#navbarDropdown {
+  display: inline;
+}
+.dropdown-menu-right {
+  right: 0;
+  left: auto;
+}
+
+.navbar .dropdown-item {
+  width: auto;
+  color: black;
+}
+
+.navbar .dropdown-item:hover {
+  color: var(--primary-color);
+  background: var(--dark-color);
+}

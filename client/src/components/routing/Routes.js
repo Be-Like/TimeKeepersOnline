@@ -6,6 +6,7 @@ import Register from '../landing/Register';
 import Login from '../landing/Login';
 import Alerts from '../general/Alerts';
 import Dashboard from '../dashboard/Dashboard';
+import Management from '../management/Management';
 
 const Routes = () => {
   return (
@@ -15,6 +16,7 @@ const Routes = () => {
         <Route exact path='/register' component={Register} />
         <Route exact path='/login' component={Login} />
         <PrivateRoute exact path='/dashboard' component={Dashboard} />
+        <PrivateRoute exact path='/management' component={Management} />
       </Switch>
     </section>
   );

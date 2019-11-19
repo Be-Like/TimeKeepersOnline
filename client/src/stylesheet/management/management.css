@@ -1,0 +1,9 @@
+/* Side Navbar */
+.job-container {
+  width: 25%;
+  position: fixed;
+  top: 72px;
+  left: 0;
+  bottom: 0;
+  overflow: auto;
+}
