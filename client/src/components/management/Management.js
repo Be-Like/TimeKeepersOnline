@@ -97,7 +97,11 @@ export default class Management extends Component {
             {/* Content */}
             <div className='content'>
               {/* {this.state.show && <AddJobModal />} */}
-              <AddJobModal />
+              {this.state.show && (
+                <div className='custom-modal'>
+                  <AddJobModal show={this.state.show} close={this.hideModal} />
+                </div>
+              )}
             </div>
           </div>
         </div>
