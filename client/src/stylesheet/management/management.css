@@ -1,9 +1,43 @@
+/* General Design */
+.ignore-navbar {
+  padding-top: 72px;
+}
+
 /* Side Navbar */
 .job-container {
+  /* position: absolute; */
+  /* position: fixed; */
   width: 25%;
-  position: fixed;
   top: 72px;
   left: 0;
   bottom: 0;
-  overflow: auto;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.side-bar-header {
+  margin: 1rem;
+}
+
+.side-bar-header-item {
+  margin: 0.25rem 0;
+}
+
+.job-list {
+  display: block;
+  min-height: calc(100vh - 12rem);
+  max-height: calc(100vh - 12rem);
+  overflow-y: auto;
+}
+
+.nav-link {
+  margin: 0 1rem;
+}
+
+/* Content */
+.content {
+  padding: 0 1rem;
+  width: 75%;
+  min-height: calc(100vh - 9rem);
+  max-height: calc(100vh - 5rem);
+  overflow-y: auto;
 }

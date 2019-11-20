@@ -31,37 +31,39 @@ const Login = ({ removeAllAlerts, login, alerts, isAuthenticated }) => {
 
   return (
     <Fragment>
-      <h1 className='large'>Sign In</h1>
-      <p className='normal'>Sign into your TimeKeepers account</p>
+      <div className='container'>
+        <h1 className='large'>Sign In</h1>
+        <p className='normal'>Sign into your TimeKeepers account</p>
 
-      <form className='form' onSubmit={submitForm => onSubmit(submitForm)}>
-        <div className='form-group'>
-          <input
-            type='email'
-            className='form-control'
-            placeholder='Email Address'
-            name='email'
-            value={email}
-            onChange={e => onChange(e)}
-            required
-          />
-        </div>
-        <div className='form-group'>
-          <input
-            type='password'
-            className='form-control'
-            placeholder='Password'
-            name='password'
-            value={password}
-            onChange={e => onChange(e)}
-            required
-          />
-        </div>
-        <input type='submit' className='btn btn-outline-primary' />
-      </form>
-      <p className='my-2'>
-        Don't have an account? <Link to='/register'>Sign Up</Link>
-      </p>
+        <form className='form' onSubmit={submitForm => onSubmit(submitForm)}>
+          <div className='form-group'>
+            <input
+              type='email'
+              className='form-control'
+              placeholder='Email Address'
+              name='email'
+              value={email}
+              onChange={e => onChange(e)}
+              required
+            />
+          </div>
+          <div className='form-group'>
+            <input
+              type='password'
+              className='form-control'
+              placeholder='Password'
+              name='password'
+              value={password}
+              onChange={e => onChange(e)}
+              required
+            />
+          </div>
+          <input type='submit' className='btn btn-outline-primary' />
+        </form>
+        <p className='my-2'>
+          Don't have an account? <Link to='/register'>Sign Up</Link>
+        </p>
+      </div>
     </Fragment>
   );
 };

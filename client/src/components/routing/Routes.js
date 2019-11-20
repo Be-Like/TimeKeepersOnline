@@ -10,7 +10,7 @@ import Management from '../management/Management';
 
 const Routes = () => {
   return (
-    <section className='container'>
+    <section>
       <Alerts />
       <Switch>
         <Route exact path='/register' component={Register} />
