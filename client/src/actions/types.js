@@ -14,3 +14,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT = 'LOGOUT';
 
 export const USER_LOADED = 'USER_LOADED';
+
+// Job Types
+export const ADD_JOB_SUCCESS = 'ADD_JOB_SUCCESS';
+export const ADD_JOB_FAIL = 'ADD_JOB_FAIL';
