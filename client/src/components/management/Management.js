@@ -43,7 +43,7 @@ const Management = ({ getJobs, job: { jobs, loading } }) => {
     jobTitle: 'Test Title',
     pay: 5,
     payPeriod: 'Weekly',
-    street: 'Street',
+    street: 'street',
     city: 'city',
     state: 'state',
     zipcode: 'zipcode',
@@ -63,6 +63,27 @@ const Management = ({ getJobs, job: { jobs, loading } }) => {
     console.log(job);
     setSelectedJob(job);
   };
+
+  const {
+    company,
+    jobTitle,
+    pay,
+    payPeriod,
+    street,
+    city,
+    state,
+    zipcode,
+    country,
+    phoneNumber,
+    email,
+    website,
+    federalIncomeTax,
+    stateIncomeTax,
+    socialSecurity,
+    medicare,
+    individualRetirement,
+    otherWithholdings
+  } = selectedJob;
 
   return (
     <Fragment>
@@ -97,12 +118,10 @@ const Management = ({ getJobs, job: { jobs, loading } }) => {
 
           {/* Content */}
           <div className='management-content'>
-            {/* {selectedJob.company} */}
-
             {selectedJob !== null ? (
               <div>
                 <div className='row management-content-header'>
-                  <h2 className='col-9'>{selectedJob.company}</h2>
+                  <h2 className='col-9'>{company}</h2>
                   <button className='btn btn-outline-primary col-1 ml-auto'>
                     <i className='material-icons'>edit</i>
                   </button>
@@ -114,12 +133,66 @@ const Management = ({ getJobs, job: { jobs, loading } }) => {
                 </div>
                 <div className='management-content-info'>
                   <div className='row'>
-                    <h4 className='col'>{selectedJob.jobTitle}</h4>
+                    <h4 className='col'>{jobTitle}</h4>
                   </div>
+                  {/* Pay Info */}
                   <div className='row'>
-                    <label className='col' htmlFor='payInfo'>
-                      Pay / Pay Rate
-                    </label>
+                    <div className='col'>
+                      <p>Pay / Pay Rate: {pay}</p>
+                    </div>
+                    <div className='col'>
+                      <p>Pay Period: {payPeriod}</p>
+                    </div>
+                  </div>
+                  {/* Address and Contact Info */}
+                  <div className='row'>
+                    {(street || city || state || zipcode || country) && (
+                      <div className='col'>
+                        <h5>Address</h5>
+                        <p>{street}</p>
+                        <p>
+                          {city}, {state} {zipcode} {country}
+                        </p>
+                      </div>
+                    )}
+                    {(phoneNumber || email || website) && (
+                      <div className='col'>
+                        <h5>Contact Information</h5>
+                        {phoneNumber && <p>Phone Number: {phoneNumber}</p>}
+                        {email && <p>Email: {email}</p>}
+                        {website && <p>website: {website}</p>}
+                      </div>
+                    )}
+                  </div>
+                  {/* Tax Information */}
+                  <div className='row'>
+                    {(federalIncomeTax ||
+                      stateIncomeTax ||
+                      socialSecurity ||
+                      socialSecurity ||
+                      medicare ||
+                      individualRetirement ||
+                      otherWithholdings) && (
+                      <div className='col'>
+                        <h5>Taxes and Other Withholdings</h5>
+                        {federalIncomeTax && (
+                          <p>Federal Income Tax: {federalIncomeTax}</p>
+                        )}
+                        {stateIncomeTax && (
+                          <p>State Income Tax: {stateIncomeTax}</p>
+                        )}
+                        {socialSecurity && (
+                          <p>Social Security: {socialSecurity}</p>
+                        )}
+                        {medicare && <p>Medicare: {medicare}</p>}
+                        {individualRetirement && (
+                          <p>Individual Retirement: {individualRetirement}</p>
+                        )}
+                        {otherWithholdings && (
+                          <p>Other Withholdings: {otherWithholdings}</p>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
