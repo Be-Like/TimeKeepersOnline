@@ -42,7 +42,7 @@ const JobSchema = new Schema({
     }
   ],
   phoneNumber: {
-    type: Number
+    type: String
   },
   email: {
     type: String

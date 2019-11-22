@@ -57,7 +57,7 @@ const AddJobModal = ({ show, close, addJob, setAlert }) => {
     try {
       await addJob(formData);
 
-      // TODO: Figure out how to close the modal after submission.
+      close();
     } catch (error) {
       setAlert('Something went wrong', 'danger');
     }
