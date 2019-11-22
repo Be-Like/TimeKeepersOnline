@@ -18,3 +18,5 @@ export const USER_LOADED = 'USER_LOADED';
 // Job Types
 export const ADD_JOB_SUCCESS = 'ADD_JOB_SUCCESS';
 export const ADD_JOB_FAIL = 'ADD_JOB_FAIL';
+export const GET_JOB_SUCCESS = 'GET_JOB_SUCCESS';
+export const GET_JOB_FAIL = 'GET_JOB_FAIL';

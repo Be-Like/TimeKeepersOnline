@@ -22,25 +22,21 @@ const JobSchema = new Schema({
     type: String,
     required: true
   },
-  address: [
-    {
-      street: {
-        type: String
-      },
-      city: {
-        type: String
-      },
-      state: {
-        type: String
-      },
-      zipcode: {
-        type: Number
-      },
-      country: {
-        type: String
-      }
-    }
-  ],
+  street: {
+    type: String
+  },
+  city: {
+    type: String
+  },
+  state: {
+    type: String
+  },
+  zipcode: {
+    type: Number
+  },
+  country: {
+    type: String
+  },
   phoneNumber: {
     type: String
   },

@@ -54,7 +54,12 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   return (
     <nav
       className='navbar navbar-dark fixed-top'
-      style={{ backgroundColor: '#343a40', opacity: '0.8', zIndex: '1' }}
+      style={{
+        backgroundColor: '#343a40',
+        opacity: '0.8',
+        zIndex: '1',
+        boxShadow: '7px 9px 10px rgba(0,0,0,0.2)'
+      }}
     >
       <h1>
         <Link to='/'>TimeKeepers</Link>

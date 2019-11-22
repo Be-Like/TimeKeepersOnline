@@ -43,6 +43,33 @@
   overflow-y: auto;
 }
 
+.management-job-not-selected {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin-top: 1rem;
+  height: calc(100vh - 7rem);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.management-job-not-selected-text {
+  position: relative;
+  top: 50%;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.management-content-header {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 7px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.management-content-info {
+  padding: 1rem;
+}
+
 .custom-modal {
   position: fixed;
   top: 0;

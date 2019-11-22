@@ -1,20 +1,67 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { getJobs } from '../../actions/job';
+import { connect } from 'react-redux';
 
 import '../../stylesheet/management/management.css';
 import AddJobModal from './AddJobModal';
 
-const Management = props => {
+const Management = ({ getJobs, job: { jobs, loading } }) => {
+  useEffect(() => {
+    getJobs();
+  }, [getJobs]);
+
   const [show, setShow] = useState(false);
 
-  const showModal = async () => {
-    await setShow(true);
-    console.log(show);
+  const showModal = () => {
+    setShow(true);
   };
 
-  const hideModal = async () => {
-    await setShow(false);
-    console.log(show);
+  const hideModal = () => {
+    setShow(false);
+  };
+
+  const jobList = jobs.map(job => (
+    <a
+      className='nav-link management-nav-link'
+      id='v-pills-home-tab'
+      data-toggle='pill'
+      href='#v-pills-home'
+      role='tab'
+      key={job._id}
+      value={job}
+      onClick={() => onSelectJob(job)}
+    >
+      {job.company}
+    </a>
+  ));
+
+  // const [selectedJob, setSelectedJob] = useState(null);
+  const [selectedJob, setSelectedJob] = useState({
+    user: '',
+    company: 'Test Company',
+    jobTitle: 'Test Title',
+    pay: 5,
+    payPeriod: 'Weekly',
+    street: 'Street',
+    city: 'city',
+    state: 'state',
+    zipcode: 'zipcode',
+    country: 'countr',
+    phoneNumber: 'phone',
+    email: 'ex@sc.com',
+    website: 'https://github.com/Be-Like/',
+    federalIncomeTax: 12,
+    stateIncomeTax: 5,
+    socialSecurity: 3,
+    medicare: 2,
+    individualRetirement: 10,
+    otherWithholdings: 10
+  });
+
+  const onSelectJob = job => {
+    console.log(job);
+    setSelectedJob(job);
   };
 
   return (
@@ -44,56 +91,46 @@ const Management = props => {
               role='tablist'
               aria-orientation='vertical'
             >
-              <a
-                className='nav-link active management-nav-link'
-                id='v-pills-home-tab'
-                data-toggle='pill'
-                href='#v-pills-home'
-                role='tab'
-                aria-controls='v-pills-home'
-                aria-selected='true'
-              >
-                Home
-              </a>
-              <a
-                className='nav-link management-nav-link'
-                id='v-pills-profile-tab'
-                data-toggle='pill'
-                href='#v-pills-profile'
-                role='tab'
-                aria-controls='v-pills-profile'
-                aria-selected='false'
-              >
-                Profile
-              </a>
-              <a
-                className='nav-link management-nav-link'
-                id='v-pills-messages-tab'
-                data-toggle='pill'
-                href='#v-pills-messages'
-                role='tab'
-                aria-controls='v-pills-messages'
-                aria-selected='false'
-              >
-                Messages
-              </a>
-              <a
-                className='nav-link management-nav-link'
-                id='v-pills-settings-tab'
-                data-toggle='pill'
-                href='#v-pills-settings'
-                role='tab'
-                aria-controls='v-pills-settings'
-                aria-selected='false'
-              >
-                Settings
-              </a>
+              {jobList}
             </div>
           </div>
 
           {/* Content */}
           <div className='management-content'>
-            {/* {this.state.show && <AddJobModal />} */}
+            {/* {selectedJob.company} */}
+
+            {selectedJob !== null ? (
+              <div>
+                <div className='row management-content-header'>
+                  <h2 className='col-9'>{selectedJob.company}</h2>
+                  <button className='btn btn-outline-primary col-1 ml-auto'>
+                    <i className='material-icons'>edit</i>
+                  </button>
+                  <button className='btn btn-outline-danger col-1 ml-auto'>
+                    <i className='material-icons' role='button'>
+                      delete
+                    </i>
+                  </button>
+                </div>
+                <div className='management-content-info'>
+                  <div className='row'>
+                    <h4 className='col'>{selectedJob.jobTitle}</h4>
+                  </div>
+                  <div className='row'>
+                    <label className='col' htmlFor='payInfo'>
+                      Pay / Pay Rate
+                    </label>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className='management-job-not-selected'>
+                <h4 className='management-job-not-selected-text'>
+                  Select a job
+                </h4>
+              </div>
+            )}
+
             {show && (
               <div className='custom-modal'>
                 <AddJobModal show={show} close={hideModal} />
@@ -106,6 +143,15 @@ const Management = props => {
   );
 };
 
-Management.propTypes = {};
+Management.propTypes = {
+  getJobs: PropTypes.func.isRequired,
+  job: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
+};
 
-export default Management;
+const mapStateToProps = state => ({
+  job: state.job,
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, { getJobs })(Management);

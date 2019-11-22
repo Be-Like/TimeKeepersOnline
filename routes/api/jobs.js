@@ -13,9 +13,25 @@ router.post(
   '/',
   auth,
   [
-    // TODO: add checks
+    check('company', 'Company is required!')
+      .not()
+      .isEmpty(),
+    check('jobTitle', 'Job Title is required')
+      .not()
+      .isEmpty(),
+    check('pay', 'Pay/Pay Rate is required')
+      .not()
+      .isEmpty(),
+    check('payPeriod', 'Pay Period is required')
+      .not()
+      .isEmpty()
   ],
   async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     try {
       // Get the user
       const user = await User.findById(req.user.id).select('-password');
@@ -25,7 +41,11 @@ router.post(
         jobTitle,
         pay,
         payPeriod,
-        address,
+        street,
+        city,
+        state,
+        zipcode,
+        country,
         phoneNumber,
         email,
         website,
@@ -44,7 +64,11 @@ router.post(
         jobTitle,
         pay,
         payPeriod,
-        address,
+        street,
+        city,
+        state,
+        zipcode,
+        country,
         phoneNumber,
         email,
         website,
@@ -67,12 +91,13 @@ router.post(
   }
 );
 
-// @route POST api/jobs
-// @desc Create a job
+// @route GET api/jobs
+// @desc Get all jobs
 // @access Private
-router.get('/', auth, async (res, req) => {
+router.get('/', auth, async (req, res) => {
   try {
-    const jobs = await Job.find();
+    // console.log(req.user.id);
+    const jobs = await Job.find({ user: req.user.id });
     res.json(jobs);
   } catch (error) {
     console.error(error.message);
