@@ -105,4 +105,28 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
+// @route DELETE api/jobs/:job_id
+// @desc Delete selected job
+// @access Private
+router.delete('/:job_id', auth, async (req, res) => {
+  try {
+    const job = await Job.findById(req.params.id);
+
+    if (!job) {
+      return res.status(404).json({ msg: 'Job not found' });
+    }
+
+    if (job.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'User not authorized' });
+    }
+
+    await job.remove();
+  } catch (error) {
+    console.error(error.message);
+    if (error.kind === 'ObjectId') {
+      return res.status(404).json({ msg: 'Job not found' });
+    }
+  }
+});
+
 module.exports = router;

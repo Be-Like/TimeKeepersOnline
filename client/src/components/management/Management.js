@@ -160,7 +160,11 @@ const Management = ({ getJobs, job: { jobs, loading } }) => {
                         <h5>Contact Information</h5>
                         {phoneNumber && <p>Phone Number: {phoneNumber}</p>}
                         {email && <p>Email: {email}</p>}
-                        {website && <p>website: {website}</p>}
+                        {website && (
+                          <p>
+                            website: <a href={website}>{website}</a>
+                          </p>
+                        )}
                       </div>
                     )}
                   </div>
