@@ -1,24 +1,62 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { getJobs } from '../../actions/job';
+import { getJobs, deleteJob } from '../../actions/job';
 import { connect } from 'react-redux';
 
 import '../../stylesheet/management/management.css';
 import AddJobModal from './AddJobModal';
 
-const Management = ({ getJobs, job: { jobs, loading } }) => {
+const Management = ({ getJobs, deleteJob, job: { jobs, loading } }) => {
   useEffect(() => {
     getJobs();
   }, [getJobs]);
 
   const [show, setShow] = useState(false);
+  const [defaultData, setDefaultData] = useState({});
+  const [isAdding, setIsAdding] = useState(true);
+  const blankJob = {
+    user: '',
+    company: '',
+    jobTitle: '',
+    pay: '',
+    payPeriod: '',
+    street: '',
+    city: '',
+    state: '',
+    zipcode: '',
+    country: '',
+    phoneNumber: '',
+    email: '',
+    website: '',
+    federalIncomeTax: '',
+    stateIncomeTax: '',
+    socialSecurity: '',
+    medicare: '',
+    individualRetirement: '',
+    otherWithholdings: ''
+  };
 
-  const showModal = () => {
+  const showModal = isAdd => {
+    if (isAdd) {
+      setDefaultData({});
+    } else {
+      setIsAdding(false);
+      setDefaultData(selectedJob);
+    }
+
     setShow(true);
   };
 
   const hideModal = () => {
+    setIsAdding(true);
     setShow(false);
+    setSelectedJob(blankJob);
+  };
+
+  const deleteSelectedJob = async jobId => {
+    await deleteJob(jobId);
+
+    setSelectedJob(blankJob);
   };
 
   const jobList = jobs.map(job => (
@@ -39,24 +77,24 @@ const Management = ({ getJobs, job: { jobs, loading } }) => {
   // const [selectedJob, setSelectedJob] = useState(null);
   const [selectedJob, setSelectedJob] = useState({
     user: '',
-    company: 'Test Company',
-    jobTitle: 'Test Title',
-    pay: 5,
-    payPeriod: 'Weekly',
-    street: 'street',
-    city: 'city',
-    state: 'state',
-    zipcode: 'zipcode',
-    country: 'countr',
-    phoneNumber: 'phone',
-    email: 'ex@sc.com',
-    website: 'https://github.com/Be-Like/',
-    federalIncomeTax: 12,
-    stateIncomeTax: 5,
-    socialSecurity: 3,
-    medicare: 2,
-    individualRetirement: 10,
-    otherWithholdings: 10
+    company: '',
+    jobTitle: '',
+    pay: '',
+    payPeriod: '',
+    street: '',
+    city: '',
+    state: '',
+    zipcode: '',
+    country: '',
+    phoneNumber: '',
+    email: '',
+    website: '',
+    federalIncomeTax: '',
+    stateIncomeTax: '',
+    socialSecurity: '',
+    medicare: '',
+    individualRetirement: '',
+    otherWithholdings: ''
   });
 
   const onSelectJob = job => {
@@ -95,7 +133,7 @@ const Management = ({ getJobs, job: { jobs, loading } }) => {
             <div className='management-side-bar-header'>
               <button
                 className='btn btn-primary col management-side-bar-header-item'
-                onClick={showModal}
+                onClick={() => showModal(true)}
               >
                 Add New Job
               </button>
@@ -118,14 +156,20 @@ const Management = ({ getJobs, job: { jobs, loading } }) => {
 
           {/* Content */}
           <div className='management-content'>
-            {selectedJob !== null ? (
+            {(company && jobTitle && pay && payPeriod) !== '' ? (
               <div>
                 <div className='row management-content-header'>
                   <h2 className='col-9'>{company}</h2>
-                  <button className='btn btn-outline-primary col-1 ml-auto'>
+                  <button
+                    className='btn btn-outline-primary col-1 ml-auto'
+                    onClick={() => showModal(false)}
+                  >
                     <i className='material-icons'>edit</i>
                   </button>
-                  <button className='btn btn-outline-danger col-1 ml-auto'>
+                  <button
+                    className='btn btn-outline-danger col-1 ml-auto'
+                    onClick={() => deleteSelectedJob(selectedJob._id)}
+                  >
                     <i className='material-icons' role='button'>
                       delete
                     </i>
@@ -210,7 +254,11 @@ const Management = ({ getJobs, job: { jobs, loading } }) => {
 
             {show && (
               <div className='custom-modal'>
-                <AddJobModal show={show} close={hideModal} />
+                <AddJobModal
+                  defaultFormData={defaultData}
+                  isAdding={isAdding}
+                  close={hideModal}
+                />
               </div>
             )}
           </div>
@@ -222,6 +270,7 @@ const Management = ({ getJobs, job: { jobs, loading } }) => {
 
 Management.propTypes = {
   getJobs: PropTypes.func.isRequired,
+  deleteJob: PropTypes.func.isRequired,
   job: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
@@ -231,4 +280,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { getJobs })(Management);
+export default connect(mapStateToProps, { getJobs, deleteJob })(Management);

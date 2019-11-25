@@ -4,7 +4,11 @@ import {
   ADD_JOB_FAIL,
   ADD_JOB_SUCCESS,
   GET_JOB_FAIL,
-  GET_JOB_SUCCESS
+  GET_JOB_SUCCESS,
+  DELETE_JOB_FAIL,
+  DELETE_JOB_SUCCESS,
+  UPDATE_JOB_FAIL,
+  UPDATE_JOB_SUCCESS
 } from './types';
 
 // Get jobs
@@ -46,6 +50,51 @@ export const addJob = formData => async dispatch => {
         msg: error.response.statusText,
         status: error.response.status
       }
+    });
+  }
+};
+
+// Edit Job
+export const updateJob = (jobId, formData) => async dispatch => {
+  const config = {
+    header: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  try {
+    const res = await axios.put(`/api/jobs/${jobId}`, formData, config);
+
+    const data = res.data;
+
+    dispatch({
+      type: UPDATE_JOB_SUCCESS,
+      payload: {
+        jobId,
+        data
+      }
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_JOB_FAIL,
+      payload: { msg: 'Update failed' }
+    });
+  }
+};
+
+// Delete Job
+export const deleteJob = jobId => async dispatch => {
+  try {
+    await axios.delete(`/api/jobs/${jobId}`);
+
+    dispatch({
+      type: DELETE_JOB_SUCCESS,
+      payload: jobId
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_JOB_FAIL,
+      payload: { msg: 'Delete error', status: 'Lame error' }
     });
   }
 };

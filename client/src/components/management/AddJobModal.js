@@ -2,31 +2,19 @@ import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alerts';
-import { addJob } from '../../actions/job';
+import { addJob, updateJob } from '../../actions/job';
 
 import '../../stylesheet/management/addJobModal.css';
 
-const AddJobModal = ({ show, close, addJob, setAlert }) => {
-  const [formData, setFormData] = useState({
-    company: '',
-    jobTitle: '',
-    pay: '',
-    payPeriod: '',
-    street: '',
-    city: '',
-    state: '',
-    zipcode: '',
-    country: '',
-    phoneNumber: '',
-    email: '',
-    website: '',
-    federalIncomeTax: '',
-    stateIncomeTax: '',
-    socialSecurity: '',
-    medicare: '',
-    individualRetirement: '',
-    otherWithholdings: ''
-  });
+const AddJobModal = ({
+  defaultFormData,
+  isAdding,
+  close,
+  addJob,
+  updateJob,
+  setAlert
+}) => {
+  const [formData, setFormData] = useState(defaultFormData);
 
   const {
     company,
@@ -54,13 +42,26 @@ const AddJobModal = ({ show, close, addJob, setAlert }) => {
 
   const onSubmit = async submitForm => {
     submitForm.preventDefault();
-    try {
-      await addJob(formData);
 
-      close();
-    } catch (error) {
-      setAlert('Something went wrong', 'danger');
+    if (isAdding) {
+      try {
+        await addJob(formData);
+
+        close();
+      } catch (error) {
+        setAlert('Something went wrong', 'danger');
+      }
+    } else {
+      console.log('Just editing');
+      try {
+        await updateJob(defaultFormData._id, formData);
+
+        close();
+      } catch (error) {
+        setAlert('Something went wrong with the edit', 'danger');
+      }
     }
+
     console.log(formData);
   };
 
@@ -320,7 +321,8 @@ const AddJobModal = ({ show, close, addJob, setAlert }) => {
 
 AddJobModal.propTypes = {
   addJob: PropTypes.func.isRequired,
+  updateJob: PropTypes.func.isRequired,
   setAlert: PropTypes.func.isRequired
 };
 
-export default connect(null, { addJob, setAlert })(AddJobModal);
+export default connect(null, { addJob, updateJob, setAlert })(AddJobModal);
