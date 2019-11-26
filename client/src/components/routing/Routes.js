@@ -7,6 +7,7 @@ import Login from '../landing/Login';
 import Alerts from '../general/Alerts';
 import Dashboard from '../dashboard/Dashboard';
 import Management from '../management/Management';
+import Calendar from '../calendar/CalendarPage';
 
 const Routes = () => {
   return (
@@ -17,6 +18,7 @@ const Routes = () => {
         <Route exact path='/login' component={Login} />
         <PrivateRoute exact path='/dashboard' component={Dashboard} />
         <PrivateRoute exact path='/management' component={Management} />
+        <PrivateRoute exact path='/calendar' component={Calendar} />
       </Switch>
     </section>
   );
