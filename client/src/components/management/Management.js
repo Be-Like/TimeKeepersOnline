@@ -12,7 +12,6 @@ const Management = ({ getJobs, deleteJob, job: { jobs, loading } }) => {
   }, [getJobs]);
 
   const [show, setShow] = useState(false);
-  const [defaultData, setDefaultData] = useState({});
   const [isAdding, setIsAdding] = useState(true);
   const blankJob = {
     user: '',
@@ -36,71 +35,8 @@ const Management = ({ getJobs, deleteJob, job: { jobs, loading } }) => {
     otherWithholdings: ''
   };
 
-  const showModal = isAdd => {
-    if (isAdd) {
-      setDefaultData({});
-    } else {
-      setIsAdding(false);
-      setDefaultData(selectedJob);
-    }
-
-    setShow(true);
-  };
-
-  const hideModal = () => {
-    setIsAdding(true);
-    setShow(false);
-    setSelectedJob(blankJob);
-  };
-
-  const deleteSelectedJob = async jobId => {
-    await deleteJob(jobId);
-
-    setSelectedJob(blankJob);
-  };
-
-  const jobList = jobs.map(job => (
-    <a
-      className='nav-link management-nav-link'
-      id='v-pills-home-tab'
-      data-toggle='pill'
-      href='#v-pills-home'
-      role='tab'
-      key={job._id}
-      value={job}
-      onClick={() => onSelectJob(job)}
-    >
-      {job.company}
-    </a>
-  ));
-
-  // const [selectedJob, setSelectedJob] = useState(null);
-  const [selectedJob, setSelectedJob] = useState({
-    user: '',
-    company: '',
-    jobTitle: '',
-    pay: '',
-    payPeriod: '',
-    street: '',
-    city: '',
-    state: '',
-    zipcode: '',
-    country: '',
-    phoneNumber: '',
-    email: '',
-    website: '',
-    federalIncomeTax: '',
-    stateIncomeTax: '',
-    socialSecurity: '',
-    medicare: '',
-    individualRetirement: '',
-    otherWithholdings: ''
-  });
-
-  const onSelectJob = job => {
-    console.log(job);
-    setSelectedJob(job);
-  };
+  const [selectedJob, setSelectedJob] = useState(blankJob);
+  const [defaultData, setDefaultData] = useState(blankJob);
 
   const {
     company,
@@ -122,6 +58,67 @@ const Management = ({ getJobs, deleteJob, job: { jobs, loading } }) => {
     individualRetirement,
     otherWithholdings
   } = selectedJob;
+
+  const showModal = isAdd => {
+    if (isAdd) {
+      setDefaultData(blankJob);
+    } else {
+      setIsAdding(false);
+      setDefaultData(selectedJob);
+    }
+
+    setShow(true);
+  };
+
+  const hideModal = () => {
+    setIsAdding(true);
+    setShow(false);
+    // setSelectedJob(blankJob);
+  };
+
+  const onSubmitted = job => {
+    setSelectedJob(job);
+  };
+
+  const deleteSelectedJob = async jobId => {
+    await deleteJob(jobId);
+
+    setSelectedJob(blankJob);
+  };
+
+  const jobList = jobs.map(job => (
+    <a
+      className={
+        company === job.company &&
+        jobTitle === job.jobTitle &&
+        pay.toString() === job.pay.toString() &&
+        payPeriod === job.payPeriod
+          ? 'nav-link management-nav-link active show'
+          : 'nav-link management-nav-link'
+      }
+      id='v-pills-home-tab'
+      data-toggle='pill'
+      href={'#' + job.company}
+      role='tab'
+      key={job._id}
+      value={job}
+      aria-selected={
+        company === job.company &&
+        jobTitle === job.jobTitle &&
+        pay.toString() === job.pay.toString() &&
+        payPeriod === job.payPeriod
+          ? true
+          : false
+      }
+      onClick={() => onSelectJob(job)}
+    >
+      {job.company}
+    </a>
+  ));
+
+  const onSelectJob = job => {
+    setSelectedJob(job);
+  };
 
   return (
     <Fragment>
@@ -257,6 +254,7 @@ const Management = ({ getJobs, deleteJob, job: { jobs, loading } }) => {
                 <AddJobModal
                   defaultFormData={defaultData}
                   isAdding={isAdding}
+                  onSubmitted={onSubmitted}
                   close={hideModal}
                 />
               </div>
