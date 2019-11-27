@@ -27,51 +27,9 @@
   --neutral-color: #fff;
 }
 
-/* GENERAL */
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-  font-size: 1em;
-  font-weight: 300;
-  line-height: 1.5;
-  color: var(--text-color);
-  background: var(--bg-color);
-  position: relative;
-}
-
-header {
-  display: block;
-  width: 100%;
-  padding: 1.75em 0;
-  border-bottom: 1px solid var(--border-color);
-  background: var(--neutral-color);
-}
-
-header #logo {
-  font-size: 175%;
-  text-align: center;
-  color: var(--main-color);
-  line-height: 1;
-}
-
-header #logo .icon {
-  padding-right: 0.25em;
-}
-
-main {
-  display: block;
-  margin: 0 auto;
-  margin-top: 5em;
-  max-width: 50em;
-}
-
 /* GRID */
 
-.row {
+.calendar .row {
   margin: 0;
   padding: 0;
   display: flex;
@@ -80,27 +38,27 @@ main {
   width: 100%;
 }
 
-.row-middle {
+.calendar .row-middle {
   align-items: center;
 }
 
-.col {
+.calendar .col {
   flex-grow: 1;
   flex-basis: 0;
   max-width: 100%;
 }
 
-.col-start {
+.calendar .col-start {
   justify-content: flex-start;
   text-align: left;
 }
 
-.col-center {
+.calendar .col-center {
   justify-content: center;
   text-align: center;
 }
 
-.col-end {
+.calendar .col-end {
   justify-content: flex-end;
   text-align: right;
 }
@@ -110,7 +68,6 @@ main {
 .calendar {
   display: block;
   position: relative;
-  width: 100%;
   background: var(--neutral-color);
   border: 1px solid var(--border-color);
 }
@@ -153,7 +110,7 @@ main {
 
 .calendar .body .cell {
   position: relative;
-  height: 5em;
+  height: 6em;
   border-right: 1px solid var(--border-color);
   overflow: hidden;
   cursor: pointer;
@@ -203,7 +160,7 @@ main {
   line-height: 1;
   color: var(--main-color);
   opacity: 0;
-  font-size: 8em;
+  font-size: 9em;
   position: absolute;
   top: -0.2em;
   right: -0.05em;
