@@ -21,10 +21,23 @@ const CalendarPage = props => {
           <div className='col-6 calendar-calendar-height'>
             <Calendar date={selectedDate} />
           </div>
-          <div className='col-6 calendar-calendar-height'>
-            <h4>
-              Hello <Moment date={dateSelected} />
-            </h4>
+          <div className='col-6'>
+            <div className='calendar-selected-info'>
+              <h4>
+                Hello <Moment date={dateSelected} />
+              </h4>
+            </div>
+            <div className='calendar-day-info'>
+              <div className='row test'>
+                <h4 className='col'>Day</h4>
+                <button className='btn calendar-center-button-content btn-outline-primary col ml-auto'>
+                  <i className='material-icons'>edit</i> Add Job Entry
+                </button>
+                <button className='btn calendar-center-button-content btn-outline-primary col ml-auto'>
+                  <i className='material-icons'>edit</i> Add Expense
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

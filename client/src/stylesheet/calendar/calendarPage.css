@@ -1,2 +1,18 @@
 .calendar-calendar-height {
+  height: calc(100vh - 7rem);
+}
+
+.calendar-selected-info {
+  height: 60vh;
+  /* height: calc(50vh - 3rem); */
+}
+
+.calendar-day-info {
+  height: calc(40vh - 7rem);
+}
+
+.calendar-center-button-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

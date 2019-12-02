@@ -110,7 +110,7 @@
 
 .calendar .body .cell {
   position: relative;
-  height: 6em;
+  height: calc(20vh - 3rem);
   border-right: 1px solid var(--border-color);
   overflow: hidden;
   cursor: pointer;
