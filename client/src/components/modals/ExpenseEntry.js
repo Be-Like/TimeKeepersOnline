@@ -1,72 +1,81 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alerts';
-import { addJob, updateJob } from '../../actions/job';
+import { addJob, updateJob, getJobs } from '../../actions/job';
 
 import '../../stylesheet/management/addJobModal.css';
 
-const AddJobModal = ({
+const ExpenseEntry = ({
   defaultFormData,
   isAdding,
   addJob,
   updateJob,
+  getJobs,
+  job: { jobs },
   onSubmitted,
   close,
   setAlert
 }) => {
+  useEffect(() => {
+    getJobs();
+  }, [getJobs]);
+
+  // Constants
   const [formData, setFormData] = useState(defaultFormData);
 
   const {
-    company,
-    jobTitle,
-    pay,
-    payPeriod,
+    expense,
+    expenseType,
+    cost,
+    jobSelection,
+    storeName,
     street,
     city,
     state,
     zipcode,
-    country,
-    phoneNumber,
-    email,
-    website,
-    federalIncomeTax,
-    stateIncomeTax,
-    socialSecurity,
-    medicare,
-    individualRetirement,
-    otherWithholdings
+    country
   } = formData;
 
+  const jobList = jobs.map(job => (
+    <option key={job._id} value={job._id}>
+      {job.jobTitle}
+    </option>
+  ));
+
+  // Methods
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async submitForm => {
     submitForm.preventDefault();
 
-    if (isAdding) {
-      try {
-        await addJob(formData);
+    // if (isAdding) {
+    //   try {
+    //     await addJob(formData);
 
-        onSubmitted(formData);
+    //     onSubmitted(formData);
 
-        close();
-      } catch (error) {
-        setAlert('Something went wrong', 'danger');
-      }
-    } else {
-      try {
-        await updateJob(defaultFormData._id, formData);
+    //     close();
+    //   } catch (error) {
+    //     setAlert('Something went wrong', 'danger');
+    //   }
+    // } else {
+    //   try {
+    //     await updateJob(defaultFormData._id, formData);
 
-        onSubmitted(formData);
+    //     onSubmitted(formData);
 
-        close();
-      } catch (error) {
-        setAlert('Something went wrong with the edit', 'danger');
-      }
-    }
+    //     close();
+    //   } catch (error) {
+    //     setAlert('Something went wrong with the edit', 'danger');
+    //   }
+    // }
+
+    console.log(formData);
   };
 
+  // Returned Component
   return (
     <Fragment>
       <div className='modal-dialog ' role='document'>
@@ -74,9 +83,9 @@ const AddJobModal = ({
           <form onSubmit={submitForm => onSubmit(submitForm)}>
             <div className='modal-header'>
               {isAdding ? (
-                <h5 className='modal-title'>Add Job</h5>
+                <h5 className='modal-title'>Add Expense</h5>
               ) : (
-                <h5 className='modal-title'>Edit Job</h5>
+                <h5 className='modal-title'>Edit Expense</h5>
               )}
               <button
                 type='button'
@@ -89,62 +98,65 @@ const AddJobModal = ({
             </div>
             <div className='modal-body custom-modal-body'>
               <div className='form-group'>
-                <label htmlFor='jobInformation'>Job Information</label>
+                <label htmlFor='expenseInformation'>Expense Information</label>
                 <input
                   type='text'
-                  id='jobInformation'
+                  id='expenseInformation'
                   className='form-control custom-modal-input'
-                  placeholder='Company'
-                  name='company'
-                  value={company ? company : ''}
+                  placeholder='Expense Name'
+                  name='expense'
+                  value={expense ? expense : ''}
                   onChange={e => onChange(e)}
                   required
                 />
                 <input
                   type='text'
-                  id='jobInformation'
+                  id='expenseInformation'
                   className='form-control custom-modal-input'
-                  placeholder='Job Title'
-                  name='jobTitle'
-                  value={jobTitle ? jobTitle : ''}
+                  placeholder='Expense Type'
+                  name='expenseType'
+                  value={expenseType ? expenseType : ''}
                   onChange={e => onChange(e)}
                   required
                 />
                 <div className='form-inline'>
                   <input
                     type='number'
-                    id='jobInformation'
+                    id='expenseInformation'
                     className='form-control col-6 custom-modal-input'
-                    placeholder='Pay/Pay Rate'
-                    name='pay'
-                    value={pay ? pay : ''}
+                    placeholder='Total Cost'
+                    name='cost'
+                    value={cost ? cost : ''}
                     onChange={e => onChange(e)}
                     required
                   />
                   <select
-                    id='jobInformation'
+                    id='expenseInformation'
                     className='form-control col-5 ml-auto'
-                    name='payPeriod'
-                    value={payPeriod ? payPeriod : ''}
+                    name='jobSelection'
+                    value={jobSelection ? jobSelection : ''}
                     onChange={e => onChange(e)}
                     required
                   >
-                    <option value=''>Select pay period</option>
-                    <option value='Weekly'>Weekly</option>
-                    <option value='Bi-Weekly'>Bi-Weekly</option>
-                    <option value='Bi-Monthly'>Bi-Monthly</option>
-                    <option value='Monthly'>Monthly</option>
-                    <option value='Quarterly'>Quarterly</option>
-                    <option value='Semi-Annually'>Semi-Annually</option>
-                    <option value='Annually'>Annually</option>
+                    <option value=''>Select job</option>
+                    {jobList}
                   </select>
                 </div>
               </div>
               <div className='form-group'>
-                <label htmlFor='addressInformation'>Address</label>
+                <label htmlFor='storeInformation'>Store Information</label>
                 <input
                   type='text'
-                  id='addressInformation'
+                  id='storeInformation'
+                  className='form-control custom-modal-input'
+                  placeholder='Store Name'
+                  name='storeName'
+                  value={storeName ? storeName : ''}
+                  onChange={e => onChange(e)}
+                />
+                <input
+                  type='text'
+                  id='storeInformation'
                   className='form-control custom-modal-input'
                   placeholder='Street Address'
                   name='street'
@@ -154,7 +166,7 @@ const AddJobModal = ({
                 <div className='form-inline'>
                   <input
                     type='text'
-                    id='addressInformation'
+                    id='storeInformation'
                     className='form-control col-6 custom-modal-input'
                     placeholder='City'
                     name='city'
@@ -162,7 +174,7 @@ const AddJobModal = ({
                     onChange={e => onChange(e)}
                   />
                   <select
-                    id='addressInformation'
+                    id='storeInformation'
                     className='form-control col-5 ml-auto'
                     name='state'
                     value={state ? state : ''}
@@ -233,7 +245,7 @@ const AddJobModal = ({
                 <div className='form-inline'>
                   <input
                     type='text'
-                    id='addressInformation'
+                    id='storeInformation'
                     className='form-control col-4 custom-modal-input'
                     placeholder='Zip Code'
                     name='zipcode'
@@ -241,7 +253,7 @@ const AddJobModal = ({
                     onChange={e => onChange(e)}
                   />
                   <select
-                    id='addressInformation'
+                    id='storeInformation'
                     className='form-control col-7 ml-auto'
                     name='country'
                     value={country ? country : ''}
@@ -517,107 +529,7 @@ const AddJobModal = ({
                 </div>
               </div>
               <div className='form-group'>
-                <label htmlFor='contactInformation'>Contact Information</label>
-                <div className='form-inline'>
-                  <input
-                    type='tel'
-                    id='contactInformation'
-                    className='form-control col custom-modal-input'
-                    placeholder='Phone Number'
-                    name='phoneNumber'
-                    value={phoneNumber ? phoneNumber : ''}
-                    onChange={e => onChange(e)}
-                  />
-                  <input
-                    type='email'
-                    id='contactInformation'
-                    className='form-control col custom-modal-input'
-                    placeholder='Email'
-                    name='email'
-                    value={email ? email : ''}
-                    onChange={e => onChange(e)}
-                  />
-                  <input
-                    type='url'
-                    id='contactInformation'
-                    className='form-control col custom-modal-input'
-                    placeholder='Website'
-                    name='website'
-                    value={website ? website : ''}
-                    onChange={e => onChange(e)}
-                  />
-                </div>
-              </div>
-              <div className='form-group'>
-                <label htmlFor='taxInformation'>
-                  Taxes and Other Withholdings
-                </label>
-                <div className='form-inline'>
-                  <p className='col custom-modal-p'>Federal Income Tax:</p>
-                  <input
-                    type='number'
-                    id='taxInformation'
-                    className='form-control col custom-modal-input'
-                    name='federalIncomeTax'
-                    value={federalIncomeTax ? federalIncomeTax : ''}
-                    onChange={e => onChange(e)}
-                  />
-                </div>
-                <div className='form-inline'>
-                  <p className='col custom-modal-p'>State Income Tax:</p>
-                  <input
-                    type='number'
-                    id='taxInformation'
-                    className='form-control col custom-modal-input'
-                    name='stateIncomeTax'
-                    value={stateIncomeTax ? stateIncomeTax : ''}
-                    onChange={e => onChange(e)}
-                  />
-                </div>
-                <div className='form-inline'>
-                  <p className='col custom-modal-p'>Social Security:</p>
-                  <input
-                    type='number'
-                    id='taxInformation'
-                    className='form-control col custom-modal-input'
-                    name='socialSecurity'
-                    value={socialSecurity ? socialSecurity : ''}
-                    onChange={e => onChange(e)}
-                  />
-                </div>
-                <div className='form-inline'>
-                  <p className='col custom-modal-p'>Medicare:</p>
-                  <input
-                    type='number'
-                    id='taxInformation'
-                    className='form-control col custom-modal-input'
-                    name='medicare'
-                    value={medicare ? medicare : ''}
-                    onChange={e => onChange(e)}
-                  />
-                </div>
-                <div className='form-inline'>
-                  <p className='col custom-modal-p'>Individual Retirement:</p>
-                  <input
-                    type='number'
-                    id='taxInformation'
-                    className='form-control col custom-modal-input'
-                    name='individualRetirement'
-                    value={individualRetirement ? individualRetirement : ''}
-                    onChange={e => onChange(e)}
-                  />
-                </div>
-                <div className='form-inline'>
-                  <p className='col custom-modal-p'>Other Withholdings:</p>
-                  <input
-                    type='number'
-                    id='taxInformation'
-                    className='form-control col custom-modal-input'
-                    name='otherWithholdings'
-                    value={otherWithholdings ? otherWithholdings : ''}
-                    onChange={e => onChange(e)}
-                  />
-                </div>
+                <label htmlFor='receiptInfo'>Receipt</label>
               </div>
             </div>
             <div className='modal-footer'>
@@ -643,10 +555,23 @@ const AddJobModal = ({
   );
 };
 
-AddJobModal.propTypes = {
+ExpenseEntry.propTypes = {
   addJob: PropTypes.func.isRequired,
   updateJob: PropTypes.func.isRequired,
-  setAlert: PropTypes.func.isRequired
+  getJobs: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
+  job: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
-export default connect(null, { addJob, updateJob, setAlert })(AddJobModal);
+const mapStateToProps = state => ({
+  job: state.job,
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, {
+  addJob,
+  updateJob,
+  getJobs,
+  setAlert
+})(ExpenseEntry);

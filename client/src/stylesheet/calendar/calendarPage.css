@@ -1,12 +1,15 @@
+/* Calendar */
 .calendar-calendar-height {
   height: calc(100vh - 7rem);
 }
 
+/* Selected Entry Info */
 .calendar-selected-info {
   height: 60vh;
   /* height: calc(50vh - 3rem); */
 }
 
+/* Day List Information */
 .calendar-day-info {
   height: calc(40vh - 7rem);
 }
@@ -15,4 +18,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.calendar-day-header {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 7px 4px 10px rgba(0, 0, 0, 0.1);
 }

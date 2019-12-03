@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import '../../stylesheet/management/management.css';
 import AddJobModal from './AddJobModal';
 
-const Management = ({ getJobs, deleteJob, job: { jobs, loading } }) => {
+const Management = ({ getJobs, deleteJob, job: { jobs } }) => {
   useEffect(() => {
     getJobs();
   }, [getJobs]);
