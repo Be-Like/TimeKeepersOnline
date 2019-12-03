@@ -24,3 +24,7 @@ export const DELETE_JOB_SUCCESS = 'DELETE_JOB_SUCCESS';
 export const DELETE_JOB_FAIL = 'DELETE_JOB_FAIL';
 export const GET_JOB_SUCCESS = 'GET_JOB_SUCCESS';
 export const GET_JOB_FAIL = 'GET_JOB_FAIL';
+
+// Expense Types
+export const ADD_EXPENSE_SUCCESS = 'ADD_EXPENSE_SUCCESS';
+export const ADD_EXPENSE_FAIL = 'ADD_EXPENSE_FAIL';

@@ -2,15 +2,15 @@ import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alerts';
-import { addJob, updateJob, getJobs } from '../../actions/job';
+import { getJobs } from '../../actions/job';
+import { addExpense } from '../../actions/expense';
 
 import '../../stylesheet/management/addJobModal.css';
 
 const ExpenseEntry = ({
   defaultFormData,
   isAdding,
-  addJob,
-  updateJob,
+  addExpense,
   getJobs,
   job: { jobs },
   onSubmitted,
@@ -28,7 +28,7 @@ const ExpenseEntry = ({
     expense,
     expenseType,
     cost,
-    jobSelection,
+    job,
     storeName,
     street,
     city,
@@ -71,6 +71,14 @@ const ExpenseEntry = ({
     //     setAlert('Something went wrong with the edit', 'danger');
     //   }
     // }
+
+    try {
+      await addExpense(formData);
+
+      close();
+    } catch (error) {
+      setAlert('Something went wrong', 'danger');
+    }
 
     console.log(formData);
   };
@@ -115,9 +123,8 @@ const ExpenseEntry = ({
                   className='form-control custom-modal-input'
                   placeholder='Expense Type'
                   name='expenseType'
-                  value={expenseType ? expenseType : ''}
+                  value={expenseType}
                   onChange={e => onChange(e)}
-                  required
                 />
                 <div className='form-inline'>
                   <input
@@ -133,8 +140,8 @@ const ExpenseEntry = ({
                   <select
                     id='expenseInformation'
                     className='form-control col-5 ml-auto'
-                    name='jobSelection'
-                    value={jobSelection ? jobSelection : ''}
+                    name='job'
+                    value={job ? job : ''}
                     onChange={e => onChange(e)}
                     required
                   >
@@ -556,8 +563,7 @@ const ExpenseEntry = ({
 };
 
 ExpenseEntry.propTypes = {
-  addJob: PropTypes.func.isRequired,
-  updateJob: PropTypes.func.isRequired,
+  addExpense: PropTypes.func.isRequired,
   getJobs: PropTypes.func.isRequired,
   setAlert: PropTypes.func.isRequired,
   job: PropTypes.object.isRequired,
@@ -570,8 +576,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  addJob,
-  updateJob,
+  addExpense,
   getJobs,
   setAlert
 })(ExpenseEntry);

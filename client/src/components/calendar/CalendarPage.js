@@ -16,7 +16,7 @@ const CalendarPage = props => {
     expense: '',
     expenseType: '',
     cost: '',
-    jobSelection: '',
+    job: '',
     storeName: '',
     street: '',
     city: '',
