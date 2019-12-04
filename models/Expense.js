@@ -23,6 +23,10 @@ const ExpenseSchema = new Schema({
     ref: 'jobs',
     required: true
   },
+  expenseDate: {
+    type: Date,
+    default: Date.now
+  },
   storeName: {
     type: String,
     default: null

@@ -1,4 +1,4 @@
-/* TODO: figure out how to isolate formatting just to the class */
+/* Modal styles */
 .custom-modal-p {
   margin: 0 auto;
 }
@@ -10,4 +10,11 @@
 .custom-modal-body {
   height: calc(100vh - 12rem);
   overflow: auto;
+}
+
+/* Expense modal  */
+.expense-entry-date-picker::-webkit-inner-spin-button,
+.expense-entry-date-picker::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

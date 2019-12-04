@@ -6,6 +6,7 @@ import { getJobs } from '../../actions/job';
 import { addExpense } from '../../actions/expense';
 
 import '../../stylesheet/management/addJobModal.css';
+import moment from 'moment';
 
 const ExpenseEntry = ({
   defaultFormData,
@@ -29,6 +30,7 @@ const ExpenseEntry = ({
     expenseType,
     cost,
     job,
+    expenseDate,
     storeName,
     street,
     city,
@@ -149,6 +151,15 @@ const ExpenseEntry = ({
                     {jobList}
                   </select>
                 </div>
+                <input
+                  id='expenseInformation'
+                  className='form-control custom-modal-input expense-entry-date-picker'
+                  type='date'
+                  name='expenseDate'
+                  placeholder='Expense Date'
+                  value={expenseDate ? expenseDate : moment()}
+                  onChange={e => onChange(e)}
+                />
               </div>
               <div className='form-group'>
                 <label htmlFor='storeInformation'>Store Information</label>

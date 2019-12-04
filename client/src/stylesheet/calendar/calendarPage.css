@@ -5,13 +5,13 @@
 
 /* Selected Entry Info */
 .calendar-selected-info {
-  height: 60vh;
+  height: 50vh;
   /* height: calc(50vh - 3rem); */
 }
 
 /* Day List Information */
 .calendar-day-info {
-  height: calc(40vh - 7rem);
+  height: calc(50vh - 7rem);
 }
 
 .calendar-center-button-content {
@@ -20,8 +20,25 @@
   align-items: center;
 }
 
+.calendar-day-content {
+  /* padding: 1rem; */
+  height: calc(30vh - 2.6rem);
+}
+
 .calendar-day-header {
+  /* margin: auto; */
   padding: 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 7px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-day-subheader {
+  padding-top: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.calendar-day-content-list {
+  height: calc(30vh - 2.8rem);
+  overflow-y: auto;
+  overflow-x: hidden;
 }

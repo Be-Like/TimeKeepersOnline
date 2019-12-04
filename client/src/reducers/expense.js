@@ -1,4 +1,9 @@
-import { ADD_EXPENSE_SUCCESS, ADD_EXPENSE_FAIL } from '../actions/types';
+import {
+  ADD_EXPENSE_SUCCESS,
+  ADD_EXPENSE_FAIL,
+  GET_EXPENSE_SUCCESS,
+  GET_EXPENSE_FAIL
+} from '../actions/types';
 
 const initialState = {
   expenses: [],
@@ -11,6 +16,12 @@ export default function(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case GET_EXPENSE_SUCCESS:
+      return {
+        ...state,
+        expenses: payload,
+        loading: false
+      };
     case ADD_EXPENSE_SUCCESS:
       return {
         ...state,
@@ -18,6 +29,7 @@ export default function(state = initialState, action) {
         loading: false
       };
     case ADD_EXPENSE_FAIL:
+    case GET_EXPENSE_FAIL:
       return {
         ...state,
         error: payload,

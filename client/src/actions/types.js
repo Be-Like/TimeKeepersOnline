@@ -28,3 +28,5 @@ export const GET_JOB_FAIL = 'GET_JOB_FAIL';
 // Expense Types
 export const ADD_EXPENSE_SUCCESS = 'ADD_EXPENSE_SUCCESS';
 export const ADD_EXPENSE_FAIL = 'ADD_EXPENSE_FAIL';
+export const GET_EXPENSE_SUCCESS = 'GET_EXPENSE_SUCCESS';
+export const GET_EXPENSE_FAIL = 'GET_EXPENSE_FAIL';

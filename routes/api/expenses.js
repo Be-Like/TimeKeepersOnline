@@ -36,6 +36,7 @@ router.post(
         expenseType,
         cost,
         job,
+        expenseDate,
         storeName,
         street,
         city,
@@ -51,6 +52,7 @@ router.post(
         expenseType,
         cost,
         job,
+        expenseDate,
         storeName,
         street,
         city,
@@ -74,7 +76,38 @@ router.post(
 // @access Private
 router.get('/', auth, async (req, res) => {
   try {
-    const expenses = await Expense.find({ user: req.user.id });
+    const expenses = await Expense.aggregate([
+      {
+        $lookup: {
+          from: 'jobs',
+          localField: 'job',
+          foreignField: '_id',
+          as: 'jobName'
+        }
+      },
+      {
+        $unwind: '$jobName'
+      },
+      {
+        $project: {
+          _id: 1,
+          user: 1,
+          expense: 1,
+          expenseType: 1,
+          cost: 1,
+          job: 1,
+          expenseDate: 1,
+          storeName: 1,
+          street: 1,
+          city: 1,
+          state: 1,
+          zipcode: 1,
+          country: 1,
+          __v: 1,
+          'jobName.jobTitle': 1
+        }
+      }
+    ]);
     res.json(expenses);
   } catch (error) {
     console.error(error.message);
